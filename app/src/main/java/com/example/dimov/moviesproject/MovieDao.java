@@ -22,7 +22,7 @@ public interface MovieDao {
     List<MovieData> loadAllById (String[] movieIDs);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    void insertAll (MovieData ... movies);
+    void insert (MovieData  movie);
 
     @Delete
     void deleteAll (MovieData ... movies);
