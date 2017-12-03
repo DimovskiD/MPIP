@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Created by dimov on 11/14/2017.
  */
@@ -11,6 +13,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity (tableName = "MovieData")
 class MovieData {
     @PrimaryKey
+            @NotNull
     String imdbID;
 
     @ColumnInfo(name = "title")
@@ -31,8 +34,8 @@ class MovieData {
 
     MovieData() {}
 
-    public String getImdbID () {return imdbID;}
-    public String getTitle () {return Title;}
-    public String getYear () {return Year;}
-    public String getPoster () {return  Poster;}
+    public String getImdbID = imdbID;
+    public String getTitle = Title;
+    public String getYear = Year;
+    public String getPoster = Poster;
 }

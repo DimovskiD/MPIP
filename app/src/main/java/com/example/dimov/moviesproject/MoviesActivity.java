@@ -1,5 +1,6 @@
 package com.example.dimov.moviesproject;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.Movie;
 import android.os.Build;
@@ -40,21 +41,40 @@ public class MoviesActivity extends AppCompatActivity {
     RecyclerView myRV;
     private RequestQueue requestQueue;
     private Gson gson;
+    AppDatabase db;
     protected void onCreate(Bundle savedInstanceState) {
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies_content);
+
+
+        //initialize database
+        db = Room.databaseBuilder(getApplicationContext(),
+                AppDatabase.class, "moviesDB").build();
+
+        //show movies from database (if any)
+        try {
+            List<MovieData> data = db.movieDao().getAll();
+            myRV = (RecyclerView)findViewById(R.id.movies);
+            myAdapter = new MovieAdapter(MoviesActivity.this, data);
+            myRV.setAdapter(myAdapter);
+            myRV.setLayoutManager(new LinearLayoutManager(MoviesActivity.this));
+
+        }
+        catch (Exception e) {}
+        //change default action bar with search toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ImageView iv = (ImageView) findViewById(R.id.searchButton);
-        requestQueue = Volley.newRequestQueue(this);
 
+        //get search icon reference
+        ImageView iv = (ImageView) findViewById(R.id.searchButton);
+
+        //send jSON request for movie
+        requestQueue = Volley.newRequestQueue(this);
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.setDateFormat("M/d/yy hh:mm a");
         gson = gsonBuilder.create();
-
         iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
