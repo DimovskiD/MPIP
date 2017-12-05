@@ -35,23 +35,9 @@ public class MoviesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_movies_content);
-
-
+        setUI();
+        getMoviesFromDB();
         //show movies from database (if any)
-     try {
-            List<MovieData> data = db.movieDao().getAll();
-            myRV = (RecyclerView)findViewById(R.id.movies);
-            myAdapter = new MovieAdapter(MoviesActivity.this, data);
-            myRV.setAdapter(myAdapter);
-            myRV.setLayoutManager(new LinearLayoutManager(MoviesActivity.this));
-
-        }
-        catch (Exception e) {}
-        //change default action bar with search toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         //get search icon reference
         ImageView iv = (ImageView) findViewById(R.id.searchButton);
@@ -69,7 +55,24 @@ public class MoviesActivity extends AppCompatActivity {
         });
     }
 
+    private void setUI() {
+        setContentView(R.layout.activity_movies_content);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
 
+    private void getMoviesFromDB() {
+        try {
+            List<MovieData> data = db.movieDao().getAll();
+            myRV = (RecyclerView)findViewById(R.id.movies);
+            myAdapter = new MovieAdapter(MoviesActivity.this, data);
+            myRV.setAdapter(myAdapter);
+            myRV.setLayoutManager(new LinearLayoutManager(MoviesActivity.this));
+
+        }
+        catch (Exception e) {}
+    }
 
 
     private void loadInService() {
