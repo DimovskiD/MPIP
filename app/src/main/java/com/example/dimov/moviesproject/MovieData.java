@@ -3,6 +3,8 @@ package com.example.dimov.moviesproject;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -38,4 +40,6 @@ class MovieData {
     public String getTitle = Title;
     public String getYear = Year;
     public String getPoster = Poster;
+
+
 }

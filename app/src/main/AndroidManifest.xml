@@ -27,10 +27,11 @@
 
         <service
             android:name=".omdbPull"
-            android:exported="false"></service>
+            android:exported="false"
+            />
         <service
             android:name=".getInfo"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>

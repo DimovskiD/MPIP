@@ -44,7 +44,7 @@ public class MoviesActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setUI();
-       // getMoviesFromDB();
+        getMoviesFromDB();
 
         handleSearch();
     }
@@ -89,17 +89,18 @@ public class MoviesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-//    private void getMoviesFromDB() {
-//        try {
-//            List<MovieData> data = db.movieDao().getAll();
-//            myRV = (RecyclerView)findViewById(R.id.movies);
-//            myAdapter = new MovieAdapter(MoviesActivity.this, data);
-//            myRV.setAdapter(myAdapter);
-//            myRV.setLayoutManager(new LinearLayoutManager(MoviesActivity.this));
-//
-//        }
-//        catch (Exception e) {}
-//    }
+    private void getMoviesFromDB() {
+        try {
+            AppDatabase db = App.get().getDB();
+            List<MovieData> data = db.movieDao().getAll();
+            myRV = (RecyclerView)findViewById(R.id.movies);
+            myAdapter = new MovieAdapter(MoviesActivity.this, data);
+            myRV.setAdapter(myAdapter);
+            myRV.setLayoutManager(new LinearLayoutManager(MoviesActivity.this));
+
+        }
+        catch (Exception e) {}
+    }
 
 
     private void loadInService() {
