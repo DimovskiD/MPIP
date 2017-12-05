@@ -21,6 +21,9 @@ public interface MovieDao {
     @Query("SELECT * FROM MovieData WHERE imdbID IN (:movieIDs)")
     List<MovieData> loadAllById (String[] movieIDs);
 
+    @Query("SELECT * FROM MovieData WHERE imdbID IN (:movieID)")
+    MovieData loadById (String movieID);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert (MovieData  movie);
 
